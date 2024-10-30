@@ -61,16 +61,17 @@ def save_reviews_to_excel(name, review_list):
         sheet.cell(row=i, column=2, value=data['stars'])
         sheet.cell(row=i, column=3, value=data['date'])  # 날짜 값 추가
 
+    excel_file_name = f"{name}_reviews.xlsx"
     file.save(f"yanolja_review.xlsx")
     return
 
 
 # 리뷰를 JSON 파일로 저장하는 함수
 def save_reviews_to_json(name, review_list):
-    json_file_name = "Residence_Haeundae.json"
+    json_file_name = f"{name}_reviews.json"
     with open(json_file_name, 'w', encoding='utf-8') as json_file:
         json.dump(review_list, json_file, ensure_ascii=False, indent=4)
-    print(f"Reviews saved to {json_file_name}")
+    return
 
 
 # 메인 크롤링 함수
@@ -99,6 +100,14 @@ def crawl_yanolja_reviews(name, url):
     driver.quit()
 
 if __name__ == '__main__':
-    name = "해운대 씨클라우드 호텔 앤 레지던스"
+    name = "레지던스"
     url = "https://www.yanolja.com/reviews/domestic/1000095499"
+    crawl_yanolja_reviews(name=name, url=url)
+
+    name = "엘본쓰"
+    url = "https://www.yanolja.com/reviews/domestic/10049090"
+    crawl_yanolja_reviews(name=name, url=url)
+
+    name = "위더스"
+    url = "https://www.yanolja.com/reviews/domestic/1000113667"
     crawl_yanolja_reviews(name=name, url=url)
