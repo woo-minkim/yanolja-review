@@ -52,9 +52,9 @@ def save_reviews_to_excel(name, review_list):
     sheet = file.active 
     sheet.title = name 
 
-    sheet.cell(row=1, column=1, value="Review")
-    sheet.cell(row=1, column=2, value="Stars")
-    sheet.cell(row=1, column=3, value="Date")  # 날짜 열 추가
+    sheet.cell(row=1, column=1, value="review")
+    sheet.cell(row=1, column=2, value="stars")
+    sheet.cell(row=1, column=3, value="date")  # 날짜 열 추가
 
     for i, data in enumerate(review_list, start=2):
         sheet.cell(row=i, column=1, value=data['review'])
@@ -62,7 +62,7 @@ def save_reviews_to_excel(name, review_list):
         sheet.cell(row=i, column=3, value=data['date'])  # 날짜 값 추가
 
     excel_file_name = f"{name}_reviews.xlsx"
-    file.save(f"yanolja_review.xlsx")
+    file.save(excel_file_name)
     return
 
 
@@ -104,7 +104,7 @@ if __name__ == '__main__':
     url = "https://www.yanolja.com/reviews/domestic/1000095499"
     crawl_yanolja_reviews(name=name, url=url)
 
-    name = "엘본쓰"
+    name = "엘본스"
     url = "https://www.yanolja.com/reviews/domestic/10049090"
     crawl_yanolja_reviews(name=name, url=url)
 
