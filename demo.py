@@ -10,8 +10,9 @@ from dotenv import load_dotenv
 load_dotenv()
 
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
+client = OpenAI(api_key=OPENAI_API_KEY)
 MAPPING_EXAMPLE = {
-  '레지던스': '.mw/레진던스_reviews.json', 
+  '레지던스': '.mw/레지던스_reviews.json', 
   '엘본스': '.mw/엘본스_reviews.json',
   '위더스': '.mw/위더스_reviews.json',
 }
@@ -22,7 +23,7 @@ MAPPING_EXAMPLE = {
 
 def preprocess_reviews(path='./res/reviews.json'):
     # 모델 실습의 입력 데이터가 고도화된 전처리 함수와 동일합니다. 
-    with open(path, 'r', encoding='UTF8') as f:
+    with open(path, 'r', encoding='utf-8') as f:
         review_list = json.load(f)
     
     reviews_good, reviews_bad = [], []
@@ -54,16 +55,16 @@ def preprocess_reviews(path='./res/reviews.json'):
     return review_good_text, review_bad_text
 
 
-def summarize(reviews):
+def summarize(reviews, prompt, temperature=0.0, model='gpt-3.5-turbo-0125'):
     # 1. prompt를 불러와서 review를 합쳐줍니다. 
     # 2. OpenAI API를 불러와서 prompt를 넣어줍니다. 
     # 3. 결과를 반환합니다.
     prompt = prompt + '\n\n' + reviews
 
     completion = client.chat.completions.create(
-        model=model,
-        messages=[{'role': 'user', 'content': prompt}],
-        temperature=temperature
+        model = model,
+        messages = [{'role': 'user', 'content': prompt}],
+        temperature = temperature
     )
 
     return completion.choices[0].message.content
