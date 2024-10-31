@@ -93,7 +93,6 @@ def crawl_yanolja_reviews(name, url):
 
     # 리뷰 엑셀로 저장
     save_reviews_to_excel(name, review_list)
-    
     # 리뷰 JSON으로 저장
     save_reviews_to_json(name, review_list)
     
@@ -111,3 +110,12 @@ if __name__ == '__main__':
     name = "위더스"
     url = "https://www.yanolja.com/reviews/domestic/1000113667"
     crawl_yanolja_reviews(name=name, url=url)
+
+
+# 전체적인 흐름 요약
+# Selenium driver로 웹 브라우저를 열고 URL에 접속
+# 웹 페이지를 스크롤하여 모든 콘텐츠 로드
+# 페이지의 HTML 소스 코드 가져오기
+# BeautifulSoup soup을 사용하여 HTML 파싱
+# 필요한 데이터(리뷰, 별점, 날짜) 추출
+# 추출한 데이터를 엑셀과 JSON 파일로 저장
